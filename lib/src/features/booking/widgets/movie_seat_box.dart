@@ -31,7 +31,8 @@ class _SeatBoxState extends State<MovieSeatBox> {
           widget.seat.isSelected = !widget.seat.isSelected;
         });
       },
-      child: DecoratedBox(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
           color: color,
           borderRadius: const BorderRadius.all(

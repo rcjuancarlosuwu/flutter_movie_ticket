@@ -9,7 +9,6 @@ final section1 = List.generate(
   (index) => Seat(
     isHidden: [0, 1, 4].contains(index),
     isOcuppied: [].contains(index),
-    isSelected: false,
   ),
 );
 
@@ -18,7 +17,6 @@ final section2 = List.generate(
   (index) => Seat(
     isHidden: [4, 5, 6, 7].contains(index),
     isOcuppied: [12, 13].contains(index),
-    isSelected: false,
   ),
 );
 
@@ -27,7 +25,6 @@ final section3 = List.generate(
   (index) => Seat(
     isHidden: [2, 3, 7].contains(index),
     isOcuppied: [13, 14, 15].contains(index),
-    isSelected: false,
   ),
 );
 
@@ -36,7 +33,6 @@ final section4 = List.generate(
   (index) => Seat(
     isHidden: [].contains(index),
     isOcuppied: [1, 2, 3].contains(index),
-    isSelected: false,
   ),
 );
 
@@ -45,7 +41,6 @@ final section5 = List.generate(
   (index) => Seat(
     isHidden: [].contains(index),
     isOcuppied: [].contains(index),
-    isSelected: false,
   ),
 );
 
@@ -54,7 +49,6 @@ final section6 = List.generate(
   (index) => Seat(
     isHidden: [].contains(index),
     isOcuppied: [14].contains(index),
-    isSelected: false,
   ),
 );
 

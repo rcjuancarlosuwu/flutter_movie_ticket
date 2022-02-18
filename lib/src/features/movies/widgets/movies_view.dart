@@ -15,20 +15,20 @@ class MoviesView extends StatefulWidget {
 
 class _MoviesViewState extends State<MoviesView>
     with SingleTickerProviderStateMixin {
-  late PageController _movieCardPageController;
-  late PageController _movieDetailPageController;
+  late final PageController _movieCardPageController;
+  late final PageController _movieDetailPageController;
 
   double _pageMovieCard = 0.0;
   double _pageMovieDetails = 0.0;
   int _indexMovieCard = 0;
-  bool _showMovieDetails = true;
+  final _showMovieDetails = ValueNotifier(true);
 
   @override
   void initState() {
     _movieCardPageController = PageController(viewportFraction: 0.77)
-      ..addListener(movieCardPagePercentListener);
+      ..addListener(_movieCardPagePercentListener);
     _movieDetailPageController = PageController()
-      ..addListener(movieDetailsPagePercentListener);
+      ..addListener(_movieDetailsPagePercentListener);
     super.initState();
   }
 
@@ -63,7 +63,7 @@ class _MoviesViewState extends State<MoviesView>
                   final isCurrentPage = index == _indexMovieCard;
                   final isScrolling = _movieCardPageController
                       .position.isScrollingNotifier.value;
-                  final isChangingPage = index == 0;
+                  final isFirstPage = index == 0;
 
                   return Transform.scale(
                     alignment: Alignment.lerp(
@@ -71,12 +71,10 @@ class _MoviesViewState extends State<MoviesView>
                       Alignment.center,
                       -progress,
                     ),
-                    scale: isScrolling && isChangingPage ? 1 - progress : scale,
+                    scale: isScrolling && isFirstPage ? 1 - progress : scale,
                     child: GestureDetector(
                       onTap: () {
-                        setState(() {
-                          _showMovieDetails = !_showMovieDetails;
-                        });
+                        _showMovieDetails.value = !_showMovieDetails.value;
                         const transitionDuration = Duration(milliseconds: 550);
                         Navigator.of(context).push(
                           PageRouteBuilder(
@@ -91,9 +89,7 @@ class _MoviesViewState extends State<MoviesView>
                           ),
                         );
                         Future.delayed(transitionDuration, () {
-                          setState(() {
-                            _showMovieDetails = !_showMovieDetails;
-                          });
+                          _showMovieDetails.value = !_showMovieDetails.value;
                         });
                       },
                       child: Hero(
@@ -138,8 +134,8 @@ class _MoviesViewState extends State<MoviesView>
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: movies.length,
                 itemBuilder: (_, index) {
-                  final opacity = (index - _pageMovieDetails).clamp(0.0, 1.0);
                   final movie = movies[index];
+                  final opacity = (index - _pageMovieDetails).clamp(0.0, 1.0);
 
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: w * .1),
@@ -158,12 +154,17 @@ class _MoviesViewState extends State<MoviesView>
                               ),
                             ),
                           ),
-                          Visibility(
-                            visible: _showMovieDetails,
-                            child: Text(
-                              movie.actors.join(', '),
-                              style: AppTextStyles.movieDetails,
-                            ),
+                          ValueListenableBuilder<bool>(
+                            valueListenable: _showMovieDetails,
+                            builder: (_, value, __) {
+                              return Visibility(
+                                visible: value,
+                                child: Text(
+                                  movie.actors.join(', '),
+                                  style: AppTextStyles.movieDetails,
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -178,14 +179,14 @@ class _MoviesViewState extends State<MoviesView>
     );
   }
 
-  movieCardPagePercentListener() {
+  _movieCardPagePercentListener() {
     setState(() {
       _pageMovieCard = _movieCardPageController.page!;
       _indexMovieCard = _movieCardPageController.page!.round();
     });
   }
 
-  movieDetailsPagePercentListener() {
+  _movieDetailsPagePercentListener() {
     setState(() {
       _pageMovieDetails = _movieDetailPageController.page!;
     });
@@ -194,10 +195,10 @@ class _MoviesViewState extends State<MoviesView>
   @override
   void dispose() {
     _movieCardPageController
-      ..removeListener(movieCardPagePercentListener)
+      ..removeListener(_movieCardPagePercentListener)
       ..dispose();
     _movieDetailPageController
-      ..removeListener(movieDetailsPagePercentListener)
+      ..removeListener(_movieDetailsPagePercentListener)
       ..dispose();
     super.dispose();
   }

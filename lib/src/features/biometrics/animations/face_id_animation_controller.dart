@@ -112,9 +112,9 @@ class FaceIDAnimationController {
           curve: const Interval(0.95, 1, curve: Curves.bounceOut),
         ));
 
-  fordward() => controller.forward();
+  TickerFuture fordward() => controller.forward();
 
-  dispose() {
+  void dispose() {
     controller.dispose();
   }
 }

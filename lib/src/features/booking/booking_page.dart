@@ -110,18 +110,16 @@ class _BookingPageState extends State<BookingPage>
               bottom: 0,
               child: GestureDetector(
                 onTap: () {
+                  const transitionDuration = Duration(milliseconds: 400);
+
                   Navigator.of(context).push(
                     PageRouteBuilder(
-                      transitionDuration: const Duration(
-                        milliseconds: 400,
-                      ),
-                      reverseTransitionDuration: const Duration(
-                        milliseconds: 400,
-                      ),
+                      transitionDuration: transitionDuration,
+                      reverseTransitionDuration: transitionDuration,
                       pageBuilder: (_, animation, ___) {
                         return FadeTransition(
                           opacity: animation,
-                          // child: const BiometricsPage(),
+                          // child: const BiometricsPage(), Uses Lottie
                           child: const CustomBiometricsPage(),
                         );
                       },
@@ -154,9 +152,11 @@ class _BookingPageState extends State<BookingPage>
             ),
             Positioned(
               bottom: h * .05,
-              child: const Text(
-                'Buy Ticket',
-                style: AppTextStyles.bookButtonTextStyle,
+              child: const IgnorePointer(
+                child: Text(
+                  'Buy Ticket',
+                  style: AppTextStyles.bookButtonTextStyle,
+                ),
               ),
             ),
           ],

@@ -99,9 +99,11 @@ class MoviePage extends StatelessWidget {
                 child: const OpacityTween(
                   child: SlideUpTween(
                     begin: Offset(-30, 60),
-                    child: Text(
-                      'Book Ticket',
-                      style: AppTextStyles.bookButtonTextStyle,
+                    child: IgnorePointer(
+                      child: Text(
+                        'Book Ticket',
+                        style: AppTextStyles.bookButtonTextStyle,
+                      ),
                     ),
                   ),
                 ),

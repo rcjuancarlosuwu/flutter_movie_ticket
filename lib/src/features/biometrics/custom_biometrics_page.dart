@@ -30,7 +30,9 @@ class _BiometricsPageState extends State<CustomBiometricsPage>
     );
     Future.delayed(
       const Duration(seconds: 1),
-      () => _controller.fordward(),
+      () => _controller.fordward().then(
+            (_) => Navigator.of(context).pop(),
+          ),
     );
     super.initState();
   }

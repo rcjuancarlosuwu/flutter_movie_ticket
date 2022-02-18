@@ -13,7 +13,7 @@ class MovieStars extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        for (int i = 1; i <= stars; i++)
+        for (int i = 0; i < stars; i++)
           const Icon(Icons.star, color: Colors.amber)
       ],
     );

@@ -11,7 +11,7 @@ class MoviesPage extends StatefulWidget {
 
 class _MoviesPageState extends State<MoviesPage>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+  late final TabController _tabController;
 
   @override
   void initState() {
