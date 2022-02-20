@@ -18,9 +18,9 @@ class _MoviesViewState extends State<MoviesView>
   late final PageController _movieCardPageController;
   late final PageController _movieDetailPageController;
 
-  double _pageMovieCard = 0.0;
-  double _pageMovieDetails = 0.0;
-  int _indexMovieCard = 0;
+  double _movieCardPage = 0.0;
+  double _movieDetailsPage = 0.0;
+  int _movieCardIndex = 0;
   final _showMovieDetails = ValueNotifier(true);
 
   @override
@@ -58,9 +58,9 @@ class _MoviesViewState extends State<MoviesView>
                 },
                 itemBuilder: (_, index) {
                   final movie = movies[index];
-                  final progress = (_pageMovieCard - index);
+                  final progress = (_movieCardPage - index);
                   final scale = ui.lerpDouble(1, .8, progress.abs())!;
-                  final isCurrentPage = index == _indexMovieCard;
+                  final isCurrentPage = index == _movieCardIndex;
                   final isScrolling = _movieCardPageController
                       .position.isScrollingNotifier.value;
                   final isFirstPage = index == 0;
@@ -135,7 +135,7 @@ class _MoviesViewState extends State<MoviesView>
                 itemCount: movies.length,
                 itemBuilder: (_, index) {
                   final movie = movies[index];
-                  final opacity = (index - _pageMovieDetails).clamp(0.0, 1.0);
+                  final opacity = (index - _movieDetailsPage).clamp(0.0, 1.0);
 
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: w * .1),
@@ -181,14 +181,14 @@ class _MoviesViewState extends State<MoviesView>
 
   _movieCardPagePercentListener() {
     setState(() {
-      _pageMovieCard = _movieCardPageController.page!;
-      _indexMovieCard = _movieCardPageController.page!.round();
+      _movieCardPage = _movieCardPageController.page!;
+      _movieCardIndex = _movieCardPageController.page!.round();
     });
   }
 
   _movieDetailsPagePercentListener() {
     setState(() {
-      _pageMovieDetails = _movieDetailPageController.page!;
+      _movieDetailsPage = _movieDetailPageController.page!;
     });
   }
 

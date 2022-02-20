@@ -26,7 +26,7 @@ class _MoviesPageState extends State<MoviesPage>
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
-          indicator: const DotTabIndicator(),
+          indicator: const DotIndicator(),
           tabs: const [
             Tab(text: 'Movie'),
             Tab(text: 'Series'),

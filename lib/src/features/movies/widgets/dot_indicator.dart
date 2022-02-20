@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_movie_ticket/src/core/constants/constants.dart';
 
-class DotTabIndicator extends Decoration {
-  const DotTabIndicator();
+class DotIndicator extends Decoration {
+  const DotIndicator();
 
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {

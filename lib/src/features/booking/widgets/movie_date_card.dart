@@ -16,7 +16,6 @@ class MovieDateCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 65,
       width: 100,
       decoration: BoxDecoration(
         color: isSelected ? AppColors.primaryColor : Colors.white,
